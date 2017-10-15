@@ -83,6 +83,18 @@ docker-build-ubuntu: ## Builds SD Ubuntu docker container
 build-debs: ## Builds and tests debian packages
 	@if [[ "${CIRCLE_BRANCH}" != docs-* ]]; then molecule test -s builder; else echo Not running on docs branch...; fi
 
+.PHONY: clean
+clean: ## DANGER! Purges all site-specific info and developer files from project.
+	@rm -vf install_files/ansible-base/app-source-ths \
+		  install_files/ansible-base/app-ssh-aths \
+		  install_files/ansible-base/app-journalist-aths \
+		  install_files/ansible-base/mon-ssh-aths \
+		  build/*.deb
+	@find -type f -iname '*.pyc' -delete
+	@find -type f -iname '*.retry' -delete
+	@rm -rvf securedrop/static/.webassets-cache
+	@git clean -f -x
+
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##
 # 2. Use sed-like syntax to remove the make targets
