@@ -2,7 +2,7 @@ import tempfile
 import time
 
 from selenium.webdriver.common.action_chains import ActionChains
-from step_helpers import screenshots
+from .step_helpers import screenshots
 
 
 class SourceNavigationSteps():
