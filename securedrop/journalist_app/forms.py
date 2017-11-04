@@ -8,7 +8,7 @@ from wtforms.validators import InputRequired
 
 class ReplyForm(FlaskForm):
     message = TextAreaField(
-        u'Message',
+        'Message',
         id="content-area",
         validators=[
             InputRequired(message=gettext('You cannot send an empty reply.')),
