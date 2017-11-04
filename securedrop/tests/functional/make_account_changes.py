@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 
-from functional_test import FunctionalTest
-from journalist_navigation_steps import JournalistNavigationSteps
-from step_helpers import screenshots
+from .functional_test import FunctionalTest
+from .journalist_navigation_steps import JournalistNavigationSteps
+from .step_helpers import screenshots
 
 
 class MakeAccountChanges(FunctionalTest, JournalistNavigationSteps, TestCase):
