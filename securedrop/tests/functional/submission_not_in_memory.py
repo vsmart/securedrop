@@ -1,11 +1,11 @@
 from unittest import TestCase
-from functional_test import FunctionalTest
+from .functional_test import FunctionalTest
 import subprocess
-from source_navigation_steps import SourceNavigationSteps
+from .source_navigation_steps import SourceNavigationSteps
 import os
 import getpass
 import re
-from step_helpers import screenshots
+from .step_helpers import screenshots
 
 
 class SubmissionNotInMemoryTest(TestCase, FunctionalTest,
