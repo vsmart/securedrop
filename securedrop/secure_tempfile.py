@@ -81,7 +81,7 @@ class SecureTemporaryFile(_TemporaryFileWrapper, object):
             raise AssertionError('You cannot write after reading!')
         self.last_action = 'write'
 
-        if isinstance(data, unicode):  # noqa
+        if isinstance(data, str):  # noqa
             data = data.encode('utf-8')
 
         self.file.write(self.encryptor.encrypt(data))
