@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from cStringIO import StringIO
+from io import StringIO
 import gzip
 from mock import patch, ANY
 import re
@@ -12,10 +12,10 @@ import crypto_util
 from db import db_session, Source
 import source
 import version
-import utils
+from . import utils
 import json
 import config
-from utils.db_helper import new_codename
+from .utils.db_helper import new_codename
 
 overly_long_codename = 'a' * (Source.MAX_CODENAME_LEN + 1)
 
@@ -443,8 +443,8 @@ class TestSourceApp(TestCase):
             resp = client.post('/lookup', follow_redirects=True)
             self.assertEqual(resp.status_code, 200)
             self.assertIn('Submit documents for the first time', resp.data)
-            self.assertNotIn('logged_in', session.keys())
-            self.assertNotIn('codename', session.keys())
+            self.assertNotIn('logged_in', list(session.keys()))
+            self.assertNotIn('codename', list(session.keys()))
 
         logger.assert_called_once_with(
             "Found no Sources when one was expected: "
