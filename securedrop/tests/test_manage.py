@@ -10,13 +10,13 @@ import manage
 import mock
 import pytest
 from sqlalchemy.orm.exc import NoResultFound
-from StringIO import StringIO
+from io import StringIO
 import subprocess
 import sys
 import time
 import unittest
 import version
-import utils
+from . import utils
 
 from db import Journalist, db_session
 
