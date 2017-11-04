@@ -1,4 +1,4 @@
-from cStringIO import StringIO
+from io import StringIO
 from flask import Blueprint, render_template, send_file
 
 import crypto_util
