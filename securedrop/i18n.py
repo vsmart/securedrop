@@ -71,7 +71,7 @@ def get_locale():
     """
     locale = None
     accept_languages = []
-    for l in request.accept_languages.values():
+    for l in list(request.accept_languages.values()):
         if '-' in l:
             sep = '-'
         else:
