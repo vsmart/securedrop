@@ -7,7 +7,7 @@ import config
 import crypto_util
 import db
 import store
-import utils
+from . import utils
 
 
 class TestCryptoUtil(unittest.TestCase):
@@ -32,11 +32,11 @@ class TestCryptoUtil(unittest.TestCase):
         invalid_2 = 'bar baz~'
 
         self.assertEqual(ok, crypto_util.clean(ok))
-        with self.assertRaisesRegexp(crypto_util.CryptoException,
-                                     'invalid input: {}'.format(invalid_1)):
+        with self.assertRaisesRegex(crypto_util.CryptoException,
+                                    'invalid input: {}'.format(invalid_1)):
             crypto_util.clean(invalid_1)
-        with self.assertRaisesRegexp(crypto_util.CryptoException,
-                                     'invalid input: {}'.format(invalid_2)):
+        with self.assertRaisesRegex(crypto_util.CryptoException,
+                                    'invalid input: {}'.format(invalid_2)):
             crypto_util.clean(invalid_2)
 
     def test_encrypt_success(self):
@@ -53,8 +53,8 @@ class TestCryptoUtil(unittest.TestCase):
 
     def test_encrypt_failure(self):
         source, _ = utils.db_helper.init_source()
-        with self.assertRaisesRegexp(crypto_util.CryptoException,
-                                     'no terminal at all requested'):
+        with self.assertRaisesRegex(crypto_util.CryptoException,
+                                    'no terminal at all requested'):
             crypto_util.encrypt(
                 str(os.urandom(1)),
                 [],
@@ -169,7 +169,7 @@ class TestCryptoUtil(unittest.TestCase):
         codename = crypto_util.genrandomid()
         hashed_codename = crypto_util.hash_codename(codename)
 
-        self.assertRegexpMatches(hashed_codename, '^[2-7A-Z]{103}=$')
+        self.assertRegex(hashed_codename, '^[2-7A-Z]{103}=$')
 
     def test_genkeypair(self):
         codename = crypto_util.genrandomid()
