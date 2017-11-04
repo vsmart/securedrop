@@ -7,7 +7,7 @@ from gnupg._util import _is_stream
 os.environ['SECUREDROP_ENV'] = 'test'  # noqa
 import config
 import secure_tempfile
-import utils
+from . import utils
 
 
 class TestSecureTempfile(unittest.TestCase):
@@ -20,8 +20,8 @@ class TestSecureTempfile(unittest.TestCase):
         utils.env.teardown()
 
     def test_read_before_writing(self):
-        with self.assertRaisesRegexp(AssertionError,
-                                     'You must write before reading!'):
+        with self.assertRaisesRegex(AssertionError,
+                                    'You must write before reading!'):
             self.f.read()
 
     def test_write_then_read_once(self):
@@ -45,12 +45,12 @@ class TestSecureTempfile(unittest.TestCase):
         self.f.write(self.msg)
         self.f.read()
 
-        with self.assertRaisesRegexp(AssertionError,
-                                     'You cannot write after reading!'):
+        with self.assertRaisesRegex(AssertionError,
+                                    'You cannot write after reading!'):
             self.f.write('BORN TO DIE')
 
     def test_read_write_unicode(self):
-        unicode_msg = u'鬼神 Kill Em All 1989'
+        unicode_msg = '鬼神 Kill Em All 1989'
         self.f.write(unicode_msg)
 
         self.assertEqual(self.f.read().decode('utf-8'), unicode_msg)
