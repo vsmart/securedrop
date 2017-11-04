@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from cStringIO import StringIO
+from io import StringIO
 import os
 import random
 import unittest
@@ -19,7 +19,7 @@ from db import (db_session, InvalidPasswordLength, Journalist, Reply, Source,
 import db
 import journalist
 import journalist_app.utils
-import utils
+from . import utils
 
 # Smugly seed the RNG for deterministic testing
 random.seed('¯\_(ツ)_/¯')
