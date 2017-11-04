@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from cStringIO import StringIO
+from io import StringIO
 import gzip
 import mock
 import os
@@ -20,7 +20,7 @@ from db import db_session, Journalist
 import journalist
 import source
 import store
-import utils
+from . import utils
 
 
 class TestIntegration(unittest.TestCase):
@@ -93,7 +93,7 @@ class TestIntegration(unittest.TestCase):
         submission_url = soup.select('ul#submissions li a')[0]['href']
         self.assertIn("-msg", submission_url)
         span = soup.select('ul#submissions li span.info span')[0]
-        self.assertRegexpMatches(span['title'], "\d+ bytes")
+        self.assertRegex(span['title'], "\d+ bytes")
 
         resp = self.journalist_app.get(submission_url)
         self.assertEqual(resp.status_code, 200)
@@ -179,7 +179,7 @@ class TestIntegration(unittest.TestCase):
         submission_url = soup.select('ul#submissions li a')[0]['href']
         self.assertIn("-doc", submission_url)
         span = soup.select('ul#submissions li span.info span')[0]
-        self.assertRegexpMatches(span['title'], "\d+ bytes")
+        self.assertRegex(span['title'], "\d+ bytes")
 
         resp = self.journalist_app.get(submission_url)
         self.assertEqual(resp.status_code, 200)
@@ -440,7 +440,7 @@ class TestIntegration(unittest.TestCase):
         col_name = delete_form_inputs[2]['value']
         resp = self.journalist_app.post('/col/delete/' + filesystem_id,
                                         follow_redirects=True)
-        self.assertEquals(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 200)
 
         self.assertIn(escape("%s's collection deleted" % (col_name,)),
                       resp.data)
