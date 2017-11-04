@@ -1,7 +1,7 @@
-import functional_test
-import source_navigation_steps
-import journalist_navigation_steps
-from step_helpers import screenshots
+from . import functional_test
+from . import source_navigation_steps
+from . import journalist_navigation_steps
+from .step_helpers import screenshots
 
 
 class TestSubmitAndRetrieveMessage(
