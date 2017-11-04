@@ -153,8 +153,7 @@ def run(args):  # pragma: no cover
     * https://stackoverflow.com/q/22565606/837471
 
     """
-    print \
-"""
+    print("""
  ____                                        ____                           
 /\\  _`\\                                     /\\  _`\\                         
 \\ \\,\\L\\_\\     __    ___   __  __  _ __    __\\ \\ \\/\\ \\  _ __   ___   _____   
@@ -164,7 +163,7 @@ def run(args):  # pragma: no cover
     \\/_____/\\/____/\\/____/ \\/___/  \\/_/ \\/____/ \\/___/  \\/_/ \\/___/  \\ \\ \\/ 
                                                                       \\ \\_\\ 
                                                                        \\/_/ 
-"""  # noqa
+""")  # noqa
 
     procs = [
         lambda: DevServerProcess('Source Interface',
