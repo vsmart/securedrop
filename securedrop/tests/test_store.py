@@ -8,7 +8,7 @@ os.environ['SECUREDROP_ENV'] = 'test'  # noqa
 import config
 from db import db_session
 import store
-import utils
+from . import utils
 
 
 class TestStore(unittest.TestCase):
@@ -41,7 +41,7 @@ class TestStore(unittest.TestCase):
         generated_absolute_path = store.path(filesystem_id)
 
         expected_absolute_path = os.path.join(config.STORE_DIR, filesystem_id)
-        self.assertEquals(generated_absolute_path, expected_absolute_path)
+        self.assertEqual(generated_absolute_path, expected_absolute_path)
 
     def test_path_returns_filename_of_items_within_folder(self):
         """store.path is called in this way in journalist.bulk_delete"""
@@ -52,20 +52,20 @@ class TestStore(unittest.TestCase):
 
         expected_absolute_path = os.path.join(config.STORE_DIR,
                                               filesystem_id, item_filename)
-        self.assertEquals(generated_absolute_path, expected_absolute_path)
+        self.assertEqual(generated_absolute_path, expected_absolute_path)
 
     def test_verify_path_not_absolute(self):
         with self.assertRaises(store.PathException):
             store.verify(os.path.join(config.STORE_DIR, '..', 'etc', 'passwd'))
 
     def test_verify_in_store_dir(self):
-        with self.assertRaisesRegexp(store.PathException, 'Invalid directory'):
+        with self.assertRaisesRegex(store.PathException, 'Invalid directory'):
             store.verify(config.STORE_DIR + "_backup")
 
     def test_verify_store_dir_not_absolute(self):
         STORE_DIR = config.STORE_DIR
         try:
-            with self.assertRaisesRegexp(
+            with self.assertRaisesRegex(
                     store.PathException,
                     'config.STORE_DIR\(\S*\) is not absolute'):
                 config.STORE_DIR = '.'
@@ -87,7 +87,7 @@ class TestStore(unittest.TestCase):
             'example-filesystem-id', 'not_valid.txt'
         )
 
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
                 store.PathException,
                 'Invalid file extension .txt'):
             store.verify(file_path)
@@ -99,7 +99,7 @@ class TestStore(unittest.TestCase):
             'example-filesystem-id', 'NOTVALID.gpg'
         )
 
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
                 store.PathException,
                 'Invalid filename NOTVALID.gpg'):
             store.verify(file_path)
@@ -120,7 +120,7 @@ class TestStore(unittest.TestCase):
         for archived_file, actual_file in zip(archivefile_contents, filenames):
             actual_file_content = open(actual_file).read()
             zipped_file_content = archive.read(archived_file)
-            self.assertEquals(zipped_file_content, actual_file_content)
+            self.assertEqual(zipped_file_content, actual_file_content)
 
     def test_rename_valid_submission(self):
         source, _ = utils.db_helper.init_source()
@@ -132,7 +132,7 @@ class TestStore(unittest.TestCase):
         actual_filename = store.rename_submission(
             source.filesystem_id, old_filename,
             new_journalist_filename)
-        self.assertEquals(actual_filename, expected_filename)
+        self.assertEqual(actual_filename, expected_filename)
 
     def test_rename_submission_with_invalid_filename(self):
         original_filename = '1-quintuple_cant-msg.gpg'
@@ -142,4 +142,4 @@ class TestStore(unittest.TestCase):
 
         # None of the above files exist, so we expect the attempt to rename
         # the submission to fail and the original filename to be returned.
-        self.assertEquals(original_filename, returned_filename)
+        self.assertEqual(original_filename, returned_filename)
