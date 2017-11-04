@@ -1,6 +1,6 @@
-import functional_test
-import journalist_navigation_steps
-from step_helpers import screenshots
+from . import functional_test
+from . import journalist_navigation_steps
+from .step_helpers import screenshots
 
 
 class TestAdminInterface(
