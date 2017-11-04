@@ -7,7 +7,7 @@ import flask_testing
 os.environ['SECUREDROP_ENV'] = 'test'  # noqa
 from db import Journalist, BadTokenException
 import journalist
-import utils
+from . import utils
 
 
 class TestJournalist2FA(flask_testing.TestCase):
@@ -76,7 +76,7 @@ class TestJournalist2FA(flask_testing.TestCase):
         self._login_admin()
 
         # Create and submit an invalid 2FA token
-        invalid_token = u'000000'
+        invalid_token = '000000'
         resp = self.client.post(url_for('admin.new_user_two_factor',
                                         uid=self.admin.id),
                                 data=dict(token=invalid_token))
@@ -102,7 +102,7 @@ class TestJournalist2FA(flask_testing.TestCase):
         self._login_user()
 
         # Create and submit an invalid 2FA token
-        invalid_token = u'000000'
+        invalid_token = '000000'
         resp = self.client.post(url_for('account.new_two_factor'),
                                 data=dict(token=invalid_token))
 
