@@ -3,7 +3,7 @@ from flask_testing import TestCase
 import mock
 
 import journalist
-from utils import db_helper, env
+from .utils import db_helper, env
 from db import (Journalist, Submission, Reply, get_one_or_else,
                 LoginThrottledException)
 
