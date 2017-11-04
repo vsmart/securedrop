@@ -8,7 +8,7 @@ from flask import session
 
 os.environ['SECUREDROP_ENV'] = 'test'  # noqa
 import config
-import i18n
+from . import i18n
 import journalist
 import manage
 import source
