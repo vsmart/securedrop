@@ -114,6 +114,10 @@
       # the list is from the securedrop/translations repository
       prompt: Space separated list of additional locales to support (ar de_DE en_US es_ES fr_FR nb_NO nl)
       default: ""
+
+    - name: enable_ssh_over_tor
+      prompt: Force SSH over Tor - (otherwise over LAN)
+      default: "true"
       private: no
 
   pre_tasks:
@@ -183,6 +187,8 @@
           var_value: "{{ securedrop_app_https_on_source_interface | bool}}"
         - var_name: securedrop_supported_locales
           var_value: "{% if securedrop_supported_locales is string %}{{ securedrop_supported_locales.split() | to_yaml }}{% else %}{{ securedrop_supported_locales | to_yaml }}{% endif %}"
+        - var_name: enable_ssh_over_tor
+          var_value: "{{ enable_ssh_over_tor | bool}}"
 
 - name: Validate site-specific information.
   hosts: localhost
