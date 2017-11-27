@@ -104,9 +104,10 @@ following: ::
     securedrop_app_https_certificate_chain_src: ca.crt
 
 The filenames should match the names of the files provided to you by DigiCert,
-and should be saved inside the ``install_files/ansible-base/`` directory. Then rerun
-the configuration: ::
+and should be saved inside the ``install_files/ansible-base/`` directory. You'll
+reactivate the virtual environment before running the Ansible playbook: ::
 
+    ./securedrop-admin setup
     ./securedrop-admin install
 
 The webserver configuration will be updated to apply the HTTPS settings.
